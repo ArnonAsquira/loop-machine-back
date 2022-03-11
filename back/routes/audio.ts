@@ -1,4 +1,3 @@
-import console from "console";
 import express from "express";
 import { encodeAllMp3Files } from "../utils/audioFileUtils";
 const router = express();
