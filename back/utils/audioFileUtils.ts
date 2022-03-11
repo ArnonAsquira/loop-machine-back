@@ -2,15 +2,15 @@ import fs from "fs";
 import path from "path";
 import { IParsedAudioFileObj } from "../types/audioTypes";
 
+const relativeLoopFilePath = "./back/assets/Loop-files";
+
+const loopFilePath = path.resolve(relativeLoopFilePath);
+
 const encodeAllMp3Files = (): IParsedAudioFileObj[] | never => {
   const encodedAudioFiles: IParsedAudioFileObj[] = [];
   try {
-    const loopFilePath = path.resolve("./back/assets/Loop-files");
-    const loopFilesDirContents = fs
-      .readdirSync(loopFilePath)
-      .toString()
-      .split(",");
-    for (const fileName of loopFilesDirContents) {
+    const loopFileNames = fs.readdirSync(loopFilePath).toString().split(",");
+    for (const fileName of loopFileNames) {
       const filePath = `${loopFilePath}/${fileName}`;
       const fileBuffer = fs.readFileSync(filePath);
       encodedAudioFiles.push({ fileName, content: encodeMp3File(fileBuffer) });
